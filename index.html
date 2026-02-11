@@ -22,9 +22,16 @@
       font-size: 18px;
       margin: 10px;
       cursor: pointer;
+      border-radius: 8px;
+      border: none;
+      transition: transform 0.2s;
+    }
+    button:active {
+      transform: scale(0.95);
     }
     #no {
       position: absolute;
+      background-color: #ffb3c1;
     }
   </style>
 </head>
@@ -32,15 +39,18 @@
 
 <div class="container">
   <h1>Dear Harshvardhan, Will you be my Valentine? 💖</h1>
-  <button onclick="yesClicked()">Yes 💘</button>
+  <button onclick="yesClicked()" style="background-color: #ff4d6d; color: white;">Yes 💘</button>
   <button id="no">No 😶</button>
 </div>
 
-<audio id="loveSong" src="lo.mp3"></audio>
+<audio id="loveSong">
+  <source src="lo.mp3" type="audio/mpeg">
+</audio>
 
 <script>
   const noBtn = document.getElementById("no");
 
+  // Logic for the escaping "No" button
   noBtn.addEventListener("mouseover", () => {
     const x = Math.random() * (window.innerWidth - 100);
     const y = Math.random() * (window.innerHeight - 50);
@@ -48,19 +58,24 @@
     noBtn.style.top = y + "px";
   });
 
+  // 2. IMPROVED YES FUNCTION
   function yesClicked() {
-    document.body.innerHTML = "<h1 style='text-align:center; margin-top:40vh;'>YAYYY 💕🥰 See you on Valentine’s! 💐</h1>";
-
-    // Play music
     const song = document.getElementById("loveSong");
-    song.play();
+    
+    // Play music immediately on click
+    song.play().catch(e => console.log("Audio play blocked until interaction"));
 
-    // Confetti
+    // Trigger Confetti
     confetti({
       particleCount: 200,
       spread: 100,
       origin: { y: 0.6 }
     });
+
+    // Change the text after a tiny delay so the confetti logic executes first
+    setTimeout(() => {
+      document.querySelector('.container').innerHTML = "<h1>YAYYY 💕🥰 See you on Valentine’s! 💐</h1>";
+    }, 100);
   }
 </script>
 
