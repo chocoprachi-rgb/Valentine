@@ -50,11 +50,12 @@
 
   function yesClicked() {
     document.body.innerHTML = "<h1 style='text-align:center; margin-top:40vh;'>YAYYY 💕🥰 See you on Valentine’s! 💐</h1>";
-    
-    // Play music
-    document.getElementById("loveSong").play();
 
-    // Confetti burst
+    // Play music
+    const song = document.getElementById("loveSong");
+    song.play();
+
+    // Confetti
     confetti({
       particleCount: 200,
       spread: 100,
